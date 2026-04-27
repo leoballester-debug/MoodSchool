@@ -1,0 +1,51 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // Default-deny everything
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive Helpers
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(uid) { return request.auth.uid == uid; }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    
+    // Schema helper for Mood
+    function isValidMood(data) {
+      return data.size() >= 3
+        && data.keys().hasAll(["date", "emojiId", "timestamp"])
+        && data.date is string && data.date.size() <= 20
+        && data.emojiId is string && data.emojiId.size() <= 20
+        && data.timestamp is number
+        && data.get('energy', '') is string
+        && data.get('word', '') is string
+        && data.get('note', '') is string;
+    }
+
+    // Enforce security for user root
+    match /usuarios/{userId} {
+      allow read, write: if false; // Must access sub-resources
+      
+      // User moods sub-collection
+      match /moods/{dateId} {
+        // Enforce reads: user can only read their own moods
+        allow get: if isSignedIn() && isOwner(userId);
+        
+        // Ensure "list" respects boundaries (avoiding blanket "isSignedIn")
+        // Not used heavily here, but keeping it secure
+        allow list: if isSignedIn() && isOwner(userId);
+
+        // Enforce writes: User can only create/update their own entries
+        allow create: if isSignedIn() && isOwner(userId) && isValidMood(incoming());
+        allow update: if isSignedIn() && isOwner(userId) && isValidMood(incoming()) && (
+          incoming().diff(existing()).affectedKeys().hasOnly(['emojiId', 'energy', 'word', 'note', 'timestamp'])
+        );
+        allow delete: if isSignedIn() && isOwner(userId);
+      }
+    }
+  }
+}
