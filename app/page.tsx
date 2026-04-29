@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'motion/react'; tainer - high
 import { LogOut, Cloud, ChevronRight, Calendar as CalendarIcon, Settings, Edit3, ChevronLeft, CloudOff } from 'lucide-react';
 import { useMoods } from '@/hooks/useMoods';
 import { loginWithGoogle, logout } from '@/lib/firebase';
@@ -11,7 +11,7 @@ const EMOJIS = [
   { id: 'mal', icon: '😞', label: 'Mal', color: 'bg-tertiary', textColor: 'text-tertiary', shadow: 'shadow-[0_0_8px_rgba(255,115,80,0.3)]' },
   { id: 'normal', icon: '😐', label: 'Normal', color: 'bg-yellow-400', textColor: 'text-yellow-400', shadow: 'shadow-[0_0_8px_rgba(250,204,21,0.4)]' },
   { id: 'bien', icon: '😊', label: 'Bien', color: 'bg-secondary', textColor: 'text-secondary', shadow: 'shadow-[0_0_8px_rgba(110,155,255,0.3)]' },
-  { id: 'increible', icon: '😄', label: 'Increíble', color: 'bg-primary', textColor: 'text-primary', shadow: 'shadow-[0_0_12px_rgba(63,255,139,0.4)]' },
+  { id: 'lokuuuuura', icon: '😝', label: 'Lokuuuuura', color: 'bg-primary', textColor: 'text-primary', shadow: 'shadow-[0_0_12px_rgba(63,255,139,0.4)]' },
 ];
 
 const ENERGIES = ['Baja', 'Media', 'Alta'];
@@ -121,8 +121,8 @@ export default function Page() {
           <span className="text-on-surface-variant font-medium text-sm mb-1">{year}</span>
         </div>
         <div className="flex gap-2 mb-1">
-          <button onClick={prevMonth} className="p-1 text-zinc-500 hover:text-white transition-colors"><ChevronLeft size={20}/></button>
-          <button onClick={nextMonth} className="p-1 text-zinc-500 hover:text-white transition-colors"><ChevronRight size={20}/></button>
+          <button onClick={prevMonth} className="p-1 text-zinc-500 hover:text-white transition-colors"><ChevronLeft size={20} /></button>
+          <button onClick={nextMonth} className="p-1 text-zinc-500 hover:text-white transition-colors"><ChevronRight size={20} /></button>
         </div>
       </div>
 
@@ -218,7 +218,7 @@ export default function Page() {
               <div className="hidden lg:block">
                 {renderCalendar()}
               </div>
-              
+
               {/* Mobile Calendar Preview */}
               <div className="lg:hidden">
                 {renderCalendar()}
@@ -278,11 +278,10 @@ export default function Page() {
                         <button
                           key={e}
                           onClick={() => setEnergy(e)}
-                          className={`flex-1 py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all active:scale-95 focus:outline-none ${
-                            isSelected
-                              ? 'bg-secondary/10 border border-secondary/20 text-secondary'
-                              : 'bg-surface-container-low text-zinc-500 hover:bg-surface-container hover:text-zinc-300 border border-transparent'
-                          }`}
+                          className={`flex-1 py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-widest transition-all active:scale-95 focus:outline-none ${isSelected
+                            ? 'bg-secondary/10 border border-secondary/20 text-secondary'
+                            : 'bg-surface-container-low text-zinc-500 hover:bg-surface-container hover:text-zinc-300 border border-transparent'
+                            }`}
                         >
                           {e}
                         </button>
@@ -306,13 +305,12 @@ export default function Page() {
                 <button
                   onClick={handleSave}
                   disabled={!selectedEmoji || isSaving}
-                  className={`w-full py-5 rounded-[1.5rem] font-bold text-sm uppercase tracking-[0.2em] transition-all duration-300 focus:outline-none ${
-                    selectedEmoji
-                      ? isSaving
-                        ? 'bg-primary/80 text-on-primary scale-[0.98]'
-                        : 'bg-primary text-on-primary shadow-[0_8px_32px_rgba(63,255,139,0.2)] hover:scale-[0.98] active:scale-95'
-                      : 'bg-surface-container-highest text-zinc-500 cursor-not-allowed'
-                  }`}
+                  className={`w-full py-5 rounded-[1.5rem] font-bold text-sm uppercase tracking-[0.2em] transition-all duration-300 focus:outline-none ${selectedEmoji
+                    ? isSaving
+                      ? 'bg-primary/80 text-on-primary scale-[0.98]'
+                      : 'bg-primary text-on-primary shadow-[0_8px_32px_rgba(63,255,139,0.2)] hover:scale-[0.98] active:scale-95'
+                    : 'bg-surface-container-highest text-zinc-500 cursor-not-allowed'
+                    }`}
                 >
                   {isSaving ? 'Guardando...' : 'Guardar Registro'}
                 </button>
@@ -344,7 +342,7 @@ export default function Page() {
         {view === 'ajustes' && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-2xl mx-auto space-y-8">
             <h3 className="font-headline text-3xl font-bold mb-8">Ajustes</h3>
-            
+
             <section className="bg-surface-container rounded-3xl p-6 border border-white/5 space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden bg-surface-container-highest">
@@ -355,7 +353,7 @@ export default function Page() {
                   <p className="text-sm text-zinc-500">{user?.email || "Modo offline (Local)"}</p>
                 </div>
               </div>
-              
+
               {!user && (
                 <button onClick={handleLogin} className="w-full py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-sm font-bold uppercase tracking-widest transition-all">
                   Vincular cuenta de Google
@@ -394,21 +392,21 @@ export default function Page() {
 
       {/* Bottom Nav */}
       <nav className="fixed bottom-0 w-full rounded-t-[1.5rem] z-50 bg-[#1a1a1a]/80 backdrop-blur-lg shadow-2xl flex justify-around items-center px-4 pb-6 pt-3">
-        <button 
+        <button
           onClick={() => setView('diario')}
           className={`flex flex-col items-center justify-center rounded-2xl px-4 py-2 transition-all active:scale-90 ${view === 'diario' ? 'text-primary bg-primary/10' : 'text-zinc-500 hover:text-zinc-300'}`}
         >
           <Edit3 size={24} />
           <span className="font-body text-[10px] font-medium uppercase tracking-wider mt-1">Diario</span>
         </button>
-        <button 
+        <button
           onClick={() => setView('calendario')}
           className={`flex flex-col items-center justify-center rounded-2xl px-4 py-2 transition-all active:scale-90 ${view === 'calendario' ? 'text-primary bg-primary/10' : 'text-zinc-500 hover:text-zinc-300'}`}
         >
           <CalendarIcon size={24} />
           <span className="font-body text-[10px] font-medium uppercase tracking-wider mt-1">Calendario</span>
         </button>
-        <button 
+        <button
           onClick={() => setView('ajustes')}
           className={`flex flex-col items-center justify-center rounded-2xl px-4 py-2 transition-all active:scale-90 ${view === 'ajustes' ? 'text-primary bg-primary/10' : 'text-zinc-500 hover:text-zinc-300'}`}
         >
